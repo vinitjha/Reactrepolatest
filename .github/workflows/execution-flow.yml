@@ -95,10 +95,10 @@ jobs:
         run: echo "Deploying..."
   report:
     needs: [lint,deploy]
-    if: failure()
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Output Information
         run: |
          echo "Something went wrong"
-         echo "${{ github}}"
+         echo "${{ toJson(github) }}"

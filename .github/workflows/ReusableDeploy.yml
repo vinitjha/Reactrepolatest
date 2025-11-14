@@ -1,0 +1,20 @@
+name: ReusableDeploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: false
+        type: string
+        default: "dev"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: |
+          echo "Deploying & Uploading.."
+          echo "Environment: ${{ inputs.environment }}"
+
+

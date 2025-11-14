@@ -1,4 +1,5 @@
-name: Website Deployment
+name: UsingReusable
+
 on:
   push:
     branches:
@@ -44,7 +45,6 @@ jobs:
       - name: Test code
         id: run-tests
         run: npm run test
-        
 
       - name: Upload test report
         if: failure() && steps.run-tests.outcome == 'failure'
@@ -82,24 +82,16 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-files
+    uses: ./.github/workflows/ReusableDeploy.yml
+    with:
+      environment: "dev"   # Optional input
 
-      - name: Output contents
-        run: ls
-
-      - name: Deploy
-        run: echo "Deploying..."
   report:
-    needs: [lint,deploy]
+    needs: [lint, deploy]
     if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Output Information
         run: |
-         echo "Something went wrong"
-         echo "${{ toJson(github) }}"
+          echo "Pipeline SUCCESS"
+          echo "${{ toJson(github) }}"

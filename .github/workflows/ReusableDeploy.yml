@@ -7,10 +7,17 @@ on:
         required: false
         type: string
         default: "dev"
-
+      outputs:
+        result:
+          description: The result of the deployment automation
+          value: 
+          
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+   outputs:
+     outcome: ${{ steps.set-result.outputs.step-result }} 
+   
+   runs-on: ubuntu-latest
     steps:
       - name: Output Information
         run: |

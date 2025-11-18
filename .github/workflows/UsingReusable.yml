@@ -86,6 +86,12 @@ jobs:
     uses: ./.github/workflows/ReusableDeploy.yml
     with:
       environment: "dev"   # Optional input
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo "${{ needs.deploy.outputs.result }}"
 
   report:
     needs: [lint, deploy]
